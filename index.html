@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daby: Inglês LEGO - Expressões Nativas Diárias</title>
+    <!-- 1. Tailwind CSS CDN for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 2. React CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- 3. Babel CDN to compile JSX in the browser (essential for single-file React deployment) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        /* Optional: Set a default font and smooth scrolling */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Custom styles for the app layout */
+        #root {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <!-- React App mounts here -->
+    </div>
+
+    <!-- The React code must be placed inside a script tag with type="text/babel" -->
+    <script type="text/babel">
+        const { useState } = React;
+
+        // Data structure holding the new lessons
+        const lessons = [
+            // 1. Can I get some sleep?
+            {
+              id: 1,
+              bp: "Posso dormir um pouco?",
+              title: "O Sono é um 'Presente' (to GET)",
+              variations: {
+                essential: "Can I get some sleep?",
+                polite: "Would it be alright if I went to sleep now?",
+                native: "Can I catch some Zs?",
+              },
+              steps: [
+                { 
+                    bp: "Posso eu", 
+                    literal: "Can I", 
+                    correct: "Can I", 
+                    catch: "O Bebê Daby quer permissão, então ele começa com 'Can I'. Fácil, né?"
+                },
+                { 
+                    bp: "dormir um pouco?", 
+                    literal: "sleep a little?", 
+                    correct: "get some sleep?", 
+                    catch: "DISRUPTIVO: Quando o Daby tá com sono, ele não diz 'Can I sleep?', ele diz 'Can I **get** some sleep?'. É como se ele estivesse pedindo permissão pra *receber* um tempinho de descanso. Pensa que o sono é um presente que você tem que **pegar** (get)."
+                },
+              ]
+            },
+            // 2. How on earth ...?
+            {
+              id: 2,
+              bp: "Como diabos...? / Como é possível...?",
+              title: "O Espanto GIGANTE (on Earth)",
+              variations: {
+                essential: "How on earth did that happen?",
+                polite: "Could you possibly explain how that occurred?",
+                native: "How in the heck...?",
+              },
+              steps: [
+                { 
+                    bp: "Como", 
+                    literal: "How", 
+                    correct: "How", 
+                    catch: "O início da pergunta, como sempre!"
+                },
+                { 
+                    bp: "diabos (é possível)?", 
+                    literal: "devil?", 
+                    correct: "on earth...?", 
+                    catch: "DISRUPTIVO: O Daby usa '**on earth**' (na Terra) quando algo é TÃO estranho que parece que veio de outro planeta! Não use só 'How?'. Colocar 'on earth' é como colocar um ponto de interrogação GIGANTE no final. É a sua carinha de espanto máxima."
+                },
+              ]
+            },
+            // 3. Stay put.
+            {
+              id: 3,
+              bp: "Fique onde está. / Não se mova.",
+              title: "Mandando Ficar COLADO (Put)",
+              variations: {
+                essential: "Stay put until I get back.",
+                polite: "Please remain in your current location.",
+                native: "Hold up right there.",
+              },
+              steps: [
+                { 
+                    bp: "Fique", 
+                    literal: "Stay", 
+                    correct: "Stay", 
+                    catch: "A ordem de permanecer."
+                },
+                { 
+                    bp: "onde está (no lugar fixo).", 
+                    literal: "where you are.", 
+                    correct: "put.", 
+                    catch: "DISRUPTIVO: 'Put' é como se fosse um ponto fixo no chão. É o Daby mandando o brinquedo ficar **colado** no lugar, sem se mexer, enquanto ele pega a mamadeira. 'Stay put' é uma ordem direta e curta."
+                },
+              ]
+            },
+            // 4. Hey, you made it!
+            {
+              id: 4,
+              bp: "Finalmente você chegou! (Cheguei a uma festa)",
+              title: "A Missão de Chegar (You MADE it!)",
+              variations: {
+                essential: "Hey, you made it!",
+                polite: "I'm glad you were able to attend.",
+                native: "What took you so long, pal?",
+              },
+              steps: [
+                { 
+                    bp: "Hey, você", 
+                    literal: "Hey, you", 
+                    correct: "Hey, you", 
+                    catch: "Uma saudação animada para começar."
+                },
+                { 
+                    bp: "conseguiu chegar!", 
+                    literal: "arrived/got here!", 
+                    correct: "made it!", 
+                    catch: "DISRUPTIVO: Na festinha do Daby, se alguém chega atrasado, ele grita 'You **made** it!'. É tipo: UAU, você *fez* o caminho! Você *conseguiu* a missão de chegar! É mais animado do que só dizer 'You arrived.' Indica superação."
+                },
+              ]
+            },
+            // 5. She played you.
+            {
+              id: 5,
+              bp: "Ela te enganou. / Ela passou a perna em você.",
+              title: "O Jogo do Engano (Played)",
+              variations: {
+                essential: "She played you.",
+                polite: "She misled you for her own gain.",
+                native: "She totally duped you.",
+              },
+              steps: [
+                { 
+                    bp: "Ela", 
+                    literal: "She", 
+                    correct: "She", 
+                    catch: "O sujeito que fez o truque."
+                },
+                { 
+                    bp: "te enganou (como se fosse um jogo).", 
+                    literal: "deceived you.", 
+                    correct: "played you.", 
+                    catch: "DISRUPTIVO: Quando o Daby perde um biscoito para o gato, ele chora: 'The kitty **played** me!'. Não é brincar, é TRUQUE! É como se a pessoa fosse uma atriz e você fosse o público que acreditou na peça. Ela **jogou** (played) com você para vencer."
+                },
+              ]
+            },
+            // 6. Flash sales.
+            {
+              id: 6,
+              bp: "Vendas relâmpago.",
+              title: "A Velocidade do Raio (Flash)",
+              variations: {
+                essential: "Check out the flash sales!",
+                polite: "They are offering temporary promotional discounts.",
+                native: "Quick deals are on!",
+              },
+              steps: [
+                { 
+                    bp: "Vendas", 
+                    literal: "Sales", 
+                    correct: "Sales", 
+                    catch: "O objeto da frase: aquilo que está sendo vendido."
+                },
+                { 
+                    bp: "relâmpago.", 
+                    literal: "lightning.", 
+                    correct: "Flash.", 
+                    catch: "DISRUPTIVO: Pensa num flash de câmera: é muito RÁPIDO. Uma 'Flash Sale' é uma venda que aparece e desaparece num piscar de olhos, como um raio. O Daby tem que correr antes que os brinquedos sumam!"
+                },
+              ]
+            },
+            // 7. I've got to go.
+            {
+              id: 7,
+              bp: "Eu tenho que ir. (Estou de saída)",
+              title: "O 'Have to' Turbinado (I've GOT to go)",
+              variations: {
+                essential: "I've got to go now.",
+                polite: "I must depart at this time.",
+                native: "Gotta run!",
+              },
+              steps: [
+                { 
+                    bp: "Eu tenho", 
+                    literal: "I have", 
+                    correct: "I've got", 
+                    catch: "É uma contração de 'I have got', que é mais informal e rápida que a simples 'I have'."
+                },
+                { 
+                    bp: "que ir.", 
+                    literal: "to go.", 
+                    correct: "to go.", 
+                    // CORREÇÃO: Colocando a descrição da imagem dentro da string para evitar erro de sintaxe.
+                    catch: "DISRUPTIVO: O Daby tem pressa! 'I've got to go' é a versão turbinada e mais rápida que 'I have to go'. O 'got' (peguei) faz parecer que você **pegou** a obrigação de ir e agora ela é sua. Use sempre 'I've got to go' para soar nativo. (Imagine um bebê correndo!)"
+                },
+              ]
+            },
+            // 8. This is what you get.
+            {
+              id: 8,
+              bp: "Isso é o que você merece. / Isso que dá.",
+              title: "O Prêmio da Consequência (You Get)",
+              variations: {
+                essential: "This is what you get for being late.",
+                polite: "These are the consequences of your actions.",
+                native: "That's what happens.",
+              },
+              steps: [
+                { 
+                    bp: "Isto é o que", 
+                    literal: "This is what", 
+                    correct: "This is what", 
+                    catch: "A introdução da frase, apontando para a situação."
+                },
+                { 
+                    bp: "você merece/obtém (consequência).", 
+                    literal: "you deserve.", 
+                    correct: "you get.", 
+                    catch: "DISRUPTIVO: Quando o Daby derruba o suco (ops!), o papai diz: 'This is what you get'. Não é uma bronca, é uma lição! É como se a bagunça fosse o **prêmio** (get) por ter feito besteira. É a **consequência**, e 'get' é usado para *obter* essa consequência."
+                },
+              ]
+            },
+            // 9. I wanna beat the traffic.
+            {
+              id: 9,
+              bp: "Quero fugir do trânsito. / Quero vencer o trânsito.",
+              title: "Lutando contra o Trânsito (Beat)",
+              variations: {
+                essential: "I wanna beat the traffic.",
+                polite: "I hope to avoid the rush hour congestion.",
+                native: "Let's leave early to skip traffic.",
+              },
+              steps: [
+                { 
+                    bp: "Eu quero", 
+                    literal: "I want to", 
+                    correct: "I wanna", 
+                    catch: "**'Wanna'** é a contração informal e muito usada de 'want to'. É mais rápido e nativo."
+                },
+                { 
+                    bp: "vencer/fugir do trânsito.", 
+                    literal: "escape the traffic.", 
+                    correct: "beat the traffic.", 
+                    catch: "DISRUPTIVO: O Daby odeia trânsito! '**Beat**' é bater/vencer. Você não foge, você *luta* e *ganha* do trânsito! É como uma corrida onde você tenta passar na frente de todos os carros lentos. Você tem que 'bater' o trânsito no tempo."
+                },
+              ]
+            },
+            // 10. watch some cable.
+            {
+              id: 10,
+              bp: "Assistir TV por assinatura.",
+              title: "A Magia do Fio (Cable)",
+              variations: {
+                essential: "I'm staying home to watch some cable.",
+                polite: "I plan to watch some programming on a paid subscription service.",
+                native: "Gonna chill and watch some shows.",
+              },
+              steps: [
+                { 
+                    bp: "Assistir", 
+                    literal: "Watch", 
+                    correct: "Watch", 
+                    catch: "O verbo para observar algo."
+                },
+                { 
+                    bp: "TV por assinatura.", 
+                    literal: "subscription TV.", 
+                    correct: "some cable.", 
+                    catch: "DISRUPTIVO: O Daby só assiste desenho no '**cable**' (cabo)! Para a maioria dos americanos, 'cable' significa TV paga/assinatura. Não é só 'watch TV', é assistir aqueles canais extras que vêm pelo **fio** (cable), ou seja, a TV mais legal."
+                },
+              ]
+            },
+            // 11. It hurts like hell.
+            {
+              id: 11,
+              bp: "Dói pra caramba. / Dói demais.",
+              title: "A Dor Máxima (Like Hell)",
+              variations: {
+                essential: "It hurts like hell.",
+                polite: "The pain is quite severe.",
+                native: "It's killing me!",
+              },
+              steps: [
+                { 
+                    bp: "Dói", 
+                    literal: "It hurts", 
+                    correct: "It hurts", 
+                    catch: "A constatação simples da dor."
+                },
+                { 
+                    bp: "pra caramba (demais).", 
+                    literal: "very much.", 
+                    correct: "like hell.", 
+                    // CORREÇÃO: Colocando a descrição da imagem dentro da string para evitar erro de sintaxe.
+                    catch: "DISRUPTIVO: Quando o Daby cai e rala o joelho, ele não diz só 'It hurts'. Ele diz 'It hurts **like hell**!' (dói como o inferno). É a dor MAIOR que existe. É a forma mais forte e dramática de dizer que está doendo. É hipérbole pura. (Imagine um curativo com um rosto triste.)"
+                },
+              ]
+            },
+        ];
+
+
+        // VariationButton component
+        const VariationButton = ({ label, selected, onClick, isDarkMode }) => (
+          <button
+            onClick={onClick}
+            className={`px-4 py-2 text-sm font-semibold rounded-full transition-all duration-200 ${
+              selected
+                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/50'
+                : isDarkMode
+                  ? 'bg-indigo-800/50 text-indigo-300 hover:bg-indigo-700/70'
+                  : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
+            }`}
+          >
+            {label}
+          </button>
+        );
+
+        // Main App component
+        const App = () => {
+          // Start on the CORE lesson by default (ID 1)
+          const [selectedLessonId, setSelectedLessonId] = useState(lessons[0].id); 
+          const [selectedVariation, setSelectedVariation] = useState('essential');
+          // Start in dark mode by default
+          const [darkMode, setDarkMode] = useState(true); 
+          const selectedLesson = lessons.find(l => l.id === selectedLessonId);
+
+          const toggleDarkMode = () => setDarkMode(prev => !prev);
+
+          // Define base colors based on mode
+          const bgColor = darkMode ? 'bg-slate-900' : 'bg-gray-50';
+          const cardColor = darkMode ? 'bg-slate-800' : 'bg-white';
+          const primaryTextColor = darkMode ? 'text-gray-100' : 'text-gray-900';
+          const secondaryTextColor = darkMode ? 'text-orange-400' : 'text-orange-600'; /* Changed color emphasis to orange for grammar */
+          const cardShadow = darkMode ? 'shadow-2xl shadow-slate-700/50' : 'shadow-xl';
+          const borderColor = darkMode ? 'border-slate-700' : 'border-indigo-100';
+
+          if (!selectedLesson) {
+            return <div className="p-8 text-center text-red-500">Lição não encontrada.</div>;
+          }
+
+          // Function to render content safely (keeping it simple as lists aren't used in new content)
+          const renderContent = (content, isDarkMode) => {
+              // Simply render the text block
+              return <p className="font-bold text-green-700 text-lg">{content}</p>;
+          };
+
+
+          return (
+            <div className={`min-h-screen font-sans p-4 sm:p-8 ${bgColor} ${primaryTextColor} w-full`}>
+              <header className="mb-8 text-center relative">
+                {/* Dark Mode Toggle Button */}
+                <button
+                    onClick={toggleDarkMode}
+                    className={`absolute top-0 right-0 p-2 rounded-full transition-colors duration-300 ${
+                        darkMode ? 'bg-indigo-600 text-white hover:bg-indigo-500' : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
+                    }`}
+                    aria-label="Toggle Dark Mode"
+                >
+                    {darkMode ? 
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.513A10 10 0 0110 20V0c5.523 0 10 4.477 10 10 0 1.574-.36 3.064-1.026 4.398l-1.681-1.681zM10 18a8 8 0 100-16 8 8 0 000 16z" clipRule="evenodd" /></svg>
+                        :
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.969 5.836a1 1 0 01-1.748 0L9.293 16a1 1 0 00-1.414 0l-.678.678a1 1 0 01-1.748 0 1 1 0 01-.168-.168l-3.232-3.232a1 1 0 011.414-1.414l3.232 3.232a1 1 0 001.414 0l.678-.678a1 1 0 011.748 0L14.707 16a1 1 0 01-1.414 1.414l-3.232-3.232a1 1 0 01-.168-.168z" clipRule="evenodd" /></svg>
+                    }
+                </button>
+
+                {/* New Header for PART 1 */}
+                <h2 className={`text-xl sm:text-2xl font-black text-indigo-400 mb-1 border-b-2 border-indigo-500 inline-block px-4 pb-1`}>
+                    PARTE 1
+                </h2>
+
+                <h1 className={`text-3xl sm:text-4xl font-extrabold leading-tight ${primaryTextColor}`}>
+                  🤖 Daby: Inglês LEGO - Expressões Nativas Diárias
+                </h1>
+                <p className={`mt-2 text-lg ${secondaryTextColor}`}>
+                  Foco: **Conversação Real** (Frases que os nativos usam todo dia)
+                  <br />
+                  <span className={`text-base font-normal ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    (Explicadas de forma disruptiva, como um bebê)
+                  </span>
+                </p>
+                
+                {/* Animated Rule Box: A Estrutura Essencial (Updated for new context) */}
+                <div className={`mt-6 mx-auto max-w-xl p-5 sm:p-6 rounded-2xl transition-all duration-500 transform 
+                                ${darkMode ? 'bg-indigo-900/50 border-2 border-indigo-700 shadow-xl shadow-indigo-900/40' : 'bg-indigo-50 border-2 border-indigo-300 shadow-lg'} 
+                                hover:scale-[1.01] hover:shadow-2xl`}>
+                    <h3 className="text-2xl font-black text-indigo-400 mb-2 leading-tight">
+                        ✨ O MÉTODO BABEL-LEGO
+                    </h3>
+                    <p className={`text-sm mb-3 font-medium ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                        Vamos desmontar e remontar as expressões. Preste atenção no bloco **"DISRUPTIVO"**!
+                    </p>
+                    <div className="text-lg font-mono p-3 rounded-xl bg-green-200 text-green-800 break-words border border-green-400 shadow-md">
+                        Português (Literal) $\rightarrow$ Inglês (Nativo)
+                    </div>
+                    <p className={`text-base font-semibold mt-2 ${primaryTextColor}`}>
+                        Exemplo: <span className="text-orange-500">I wanna beat the traffic.</span> (Quero fugir/vencer o trânsito.)
+                    </p>
+                </div>
+                
+              </header>
+
+              {/* Selector and Main Content Grid */}
+              <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto">
+                
+                {/* Sidebar: Lesson Selector */}
+                <div className={`lg:w-1/3 p-6 rounded-xl ${cardColor} ${cardShadow} h-fit border ${borderColor}`}>
+                  <h2 className={`text-xl font-bold mb-4 ${secondaryTextColor}`}>Selecione uma Expressão (BP)</h2>
+                  <div className="space-y-2">
+                    {lessons.map(lesson => (
+                      <button
+                        key={lesson.id}
+                        onClick={() => {
+                          setSelectedLessonId(lesson.id);
+                          setSelectedVariation('essential');
+                        }}
+                        className={`w-full text-left p-3 rounded-lg transition-all duration-200 font-medium ${
+                          lesson.id === selectedLessonId
+                            ? 'bg-indigo-500 text-white shadow-md'
+                            : darkMode
+                              ? 'bg-slate-700 text-gray-300 hover:bg-slate-600'
+                              : 'bg-gray-100 text-gray-700 hover:bg-indigo-50 hover:text-indigo-600'
+                        }`}
+                      >
+                        {lesson.bp}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Main Lesson Content */}
+                <div className="lg:w-2/3 space-y-8">
+
+                  {/* Current Lesson Title */}
+                  <div className={`p-6 rounded-xl ${cardColor} ${cardShadow} border-l-4 border-orange-600`}>
+                    <p className="text-xl font-light text-gray-500 mb-1">Expressão Selecionada (Foco no Uso):</p>
+                    <h2 className={`text-3xl font-extrabold ${primaryTextColor}`}>{selectedLesson.bp}</h2>
+                    <p className={`mt-2 font-semibold ${secondaryTextColor}`}>{selectedLesson.title}</p>
+                  </div>
+
+                  {/* Lego Breakdown Section */}
+                  <div className={`p-6 rounded-xl ${cardColor} ${cardShadow}`}>
+                    <h3 className={`text-2xl font-bold mb-4 ${primaryTextColor} border-b pb-2`}>🧱 Método LEGO: Desmontando e Construindo</h3>
+                    <div className="space-y-6">
+                      {selectedLesson.steps.map((step, index) => (
+                        <div key={index} className={`border p-4 rounded-lg ${darkMode ? 'border-slate-700 bg-slate-700/50' : 'border-gray-200 bg-orange-50/50'}`}>
+                          <p className="text-sm font-semibold text-gray-500 mb-2">Bloco {index + 1}</p>
+                          
+                          <div className="grid grid-cols-3 gap-3 mb-3">
+                            {/* BP Block */}
+                            <div className="text-center p-2 rounded-lg bg-pink-100 border border-pink-300">
+                              <p className="font-bold text-pink-700 text-lg">{step.bp}</p>
+                              <p className="text-xs text-pink-500">PORTUGUÊS (BR)</p>
+                            </div>
+                            
+                            {/* Literal/Incorrect Block */}
+                            <div className="text-center p-2 rounded-lg bg-red-100 border border-red-300">
+                              <p className="font-bold text-red-700 text-lg">{step.literal}</p>
+                              <p className="text-xs text-red-500">TRADUÇÃO LITERAL (NÃO USE!)</p>
+                            </div>
+                            
+                            {/* Correct Block - RENDER WITH DARK MODE INFO */}
+                            <div className="text-center p-2 rounded-lg bg-green-100 border border-green-300">
+                              {renderContent(step.correct, darkMode)}
+                              <p className="text-xs text-green-500">BLOCO LEGO (CORRETO)</p>
+                            </div>
+                          </div>
+
+                          <div className={`mt-3 p-3 rounded-lg border ${darkMode ? 'bg-slate-700 border-orange-600' : 'bg-white border-orange-300'}`}>
+                            <p className="font-extrabold text-orange-500">👶 EXPLICAÇÃO DISRUPTIVA (A Regra do Daby):</p>
+                            <p className={`text-sm ${darkMode ? 'text-gray-200' : 'text-gray-700'} mt-1`}>{step.catch}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Variation Section */}
+                  <div className={`p-6 rounded-xl ${cardColor} ${cardShadow}`}>
+                    <h3 className={`text-2xl font-bold mb-4 ${primaryTextColor} border-b pb-2`}>🗣️ Versões para o Mundo Real</h3>
+                    <div className="flex flex-wrap gap-3 mb-6">
+                      <VariationButton 
+                        label="BÁSICO/ESSENCIAL" 
+                        selected={selectedVariation === 'essential'}
+                        onClick={() => setSelectedVariation('essential')}
+                        isDarkMode={darkMode}
+                      />
+                      <VariationButton 
+                        label="EDUCADO (Polite)" 
+                        selected={selectedVariation === 'polite'}
+                        onClick={() => setSelectedVariation('polite')}
+                        isDarkMode={darkMode}
+                      />
+                      <VariationButton 
+                        label="NATIVO (Native/Casual)" 
+                        selected={selectedVariation === 'native'}
+                        onClick={() => setSelectedVariation('native')}
+                        isDarkMode={darkMode}
+                      />
+                    </div>
+                    
+                    <div className={`p-4 sm:p-6 rounded-lg border-l-4 ${darkMode ? 'bg-slate-700 border-orange-500' : 'bg-orange-50 border-orange-500'}`}>
+                      <p className={`text-sm font-medium mb-1 ${secondaryTextColor}`}>
+                        Versão Selecionada: <span className="uppercase">{selectedVariation}</span>
+                      </p>
+                      <p className={`text-2xl font-extrabold ${primaryTextColor} break-words`}>
+                        {selectedLesson.variations[selectedVariation]}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        };
+        
+        // Render the App component using the React root API
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        root.render(<App />);
+    </script>
+</body>
+</html>
